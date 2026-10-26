@@ -1,0 +1,22 @@
+{
+  "name": "Zelvaryn",
+  "package": "app.zelvaryn.signer",
+  "version": "1.0.0",
+  "versionCode": 1,
+  "file": "/downloads/zelvaryn-1.0.0.apk",
+  "size": 33917,
+  "sha256": "d7367062f2c660b81181a5e03ed08078289e62d0172344748a861a85bfef3a19",
+  "certSha256": "73D4CB505353B4BB7F1B68407A7731CC274A0F807FC001FF08EDF5B35BF70029",
+  "minSdk": 24,
+  "targetSdk": 35,
+  "builtAt": "2026-10-26T02:20:29Z",
+  "signerDn": "CN=Zelvaryn, OU=Signing Studio, O=Zelvaryn, L=Internet, C=US",
+  "verifiedSchemes": [
+    "v2",
+    "v3"
+  ],
+  "sourceArchive": "/downloads/zelvaryn-android-source.zip",
+  "sourceSha256": "e5a7eb73ee814ae4c702ded20572a63e476484524869a2a12cdb0e322a761675",
+  "sourceSize": 17688,
+  "toolchain": "aapt2 + javac + d8 + zipalign + apksigner (build-tools 34, platform 35, JDK 17)"
+}

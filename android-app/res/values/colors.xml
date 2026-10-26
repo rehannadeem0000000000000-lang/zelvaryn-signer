@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ink">#07060E</color>
+    <color name="ink_soft">#0D0B16</color>
+    <color name="card">#12101C</color>
+    <color name="card_edge">#282142</color>
+    <color name="violet">#A855F7</color>
+    <color name="violet_deep">#6D28D9</color>
+    <color name="lime">#C8FF4D</color>
+    <color name="text">#F4F1FF</color>
+    <color name="text_dim">#9C93B8</color>
+    <color name="danger">#FF6B81</color>
+    <color name="ic_launcher_background">#0B0915</color>
+</resources>
