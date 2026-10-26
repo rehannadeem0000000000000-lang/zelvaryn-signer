@@ -1,0 +1,55 @@
+name: Build Zelvaryn APK Signer
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: ''
+
+      - name: Install SDK packages
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;34.0.0" "platform-tools"
+
+      - name: Build APK
+        run: |
+          REAL_SDK="$ANDROID_HOME"
+          FAKE_SDK=/tmp/aos
+          mkdir -p "$FAKE_SDK/bt" "$FAKE_SDK/plat"
+          ln -sf "$REAL_SDK/build-tools/34.0.0" "$FAKE_SDK/bt/android-14"
+          ln -sf "$REAL_SDK/platforms/android-35" "$FAKE_SDK/plat/android-35"
+          export ANDROID_HOME="$FAKE_SDK"
+          export ANDROID_PLATFORM_JAR="$FAKE_SDK/plat/android-35/android.jar"
+          cd android-app
+          chmod +x build.sh
+          bash build.sh
+
+      - name: Verify APK
+        run: |
+          APK=android-app/build/zelvaryn-1.0.0.apk
+          ls -lh "$APK"
+          unzip -l "$APK" | grep -E "classes.dex|resources.arsc|AndroidManifest"
+          head -c4 "$APK" | od -An -tx1 | grep -q "50 4b 03 04" && echo "ZIP magic OK"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: zelvaryn-signer
+          path: android-app/build/*.apk
